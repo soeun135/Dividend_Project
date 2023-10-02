@@ -16,9 +16,9 @@ public class DividendApplication {
 	public static void main(String[] args) {
 //		SpringApplication.run(DividendApplication.class, args);
 
-		//web사이트에요청을 보내서 html 받아와야함
-		Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/COKE/history?period1=99100800&period2=1695945600&interval=1mo&filter=history&frequency=1mo&includeAdjustedClose=true");//인자로 연결 요청할 URL
 		try {
+			//web사이트에요청을 보내서 html 받아와야함
+			Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/COKE/history?period1=99100800&period2=1695945600&interval=1mo&filter=history&frequency=1mo&includeAdjustedClose=true");//인자로 연결 요청할 URL
 			Document document = connection.get();
 
 			Elements eles =
