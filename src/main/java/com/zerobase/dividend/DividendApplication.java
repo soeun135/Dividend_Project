@@ -10,11 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class DividendApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(DividendApplication.class, args);
+		SpringApplication.run(DividendApplication.class, args);
 
 		try {
 			//web사이트에요청을 보내서 html 받아와야함
