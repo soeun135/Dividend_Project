@@ -18,4 +18,5 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
     //값이 없는 경우의 처리도 깔끔하게 처리 가능
 
     Page<CompanyEntity> findByNameStartingWithIgnoreCase(String s, Pageable pageable);
+
 }
