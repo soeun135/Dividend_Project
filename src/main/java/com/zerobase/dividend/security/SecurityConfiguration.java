@@ -1,4 +1,4 @@
-package com.zerobase.dividend.scraper;
+package com.zerobase.dividend.security;
 
 public class SecurityConfiguration {
 }
