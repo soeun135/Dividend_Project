@@ -12,14 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class DividendApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(DividendApplication.class, args);
+		SpringApplication.run(DividendApplication.class, args);
 
-		YahooFinanceScraper scraper =  new YahooFinanceScraper();
-		var result = scraper.scrapCompanyByTicker("MMM");
-		System.out.println(result);
 	}
 }
