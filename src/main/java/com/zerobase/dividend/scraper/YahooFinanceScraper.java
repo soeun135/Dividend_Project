@@ -55,10 +55,9 @@ public class YahooFinanceScraper implements Scraper{
                 if (month < 0) { //값 못 찾으면 -1 반환 됨.
                     throw new RuntimeException("Unexpected Month enum value ->" + splits[0]);
                 }
-                dividends.add(Dividend.builder() //배당금 리스트에 배당금 스크래핑해온 데이터값 저장
-                        .date(LocalDateTime.of(year, month, day, 0, 0))
-                        .dividend(dividend)
-                        .build());
+                dividends.add(new Dividend( //배당금 리스트에 배당금 스크래핑해온 데이터값 저장
+                        LocalDateTime.of(year, month, day, 0, 0),
+                        dividend));
             }
             scrapResult.setDividends(dividends);
             //모든 배당금 정보가 추가된 배당금 리스트가 scrapeResult에 추가됨
@@ -82,10 +81,7 @@ public class YahooFinanceScraper implements Scraper{
 
             String title = titleEle.text().split(" - ")[0].trim();
             //여기가 [1]로하셨는데 이걸로 하면 인덱스범위초과 오류가남.
-            return Company.builder()
-                    .ticker(ticker)
-                    .name(title)
-                    .build();
+            return new Company(ticker, title);
         } catch (IOException e) {
             e.printStackTrace();
         }
