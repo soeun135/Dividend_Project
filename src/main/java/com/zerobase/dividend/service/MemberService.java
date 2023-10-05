@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
