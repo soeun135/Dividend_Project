@@ -35,10 +35,6 @@ public class CompanyService {
         }
         return this.storeCompanyAndDividend(ticker);
     }
-
-    public Page<CompanyEntity> getAllCompany(Pageable pageable) {
-        return this.companyRepository.findAll(pageable);
-    }
     private Company storeCompanyAndDividend(String ticker) {
         Company company =
                 this.yahooFinanceScraper.scrapCompanyByTicker(ticker);
@@ -55,6 +51,10 @@ public class CompanyService {
                 .collect(Collectors.toList());
         this.dividendRepository.saveAll(dividendEntities);
         return company;
+    }
+
+    public Page<CompanyEntity> getAllCompany(Pageable pageable) {
+        return this.companyRepository.findAll(pageable);
     }
 
     public List<String> getCompanyNamesByKeyword(String keyword) {
