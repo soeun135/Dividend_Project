@@ -52,15 +52,14 @@ public class YahooFinanceScraper implements Scraper{
                 int year = Integer.parseInt(splits[2]);
                 String dividend = splits[3];
 
-                if (month < 0) { //값 못 찾으면 -1 반환 됨.
+                if (month < 0) {
                     throw new RuntimeException("Unexpected Month enum value ->" + splits[0]);
                 }
-                dividends.add(new Dividend( //배당금 리스트에 배당금 스크래핑해온 데이터값 저장
+                dividends.add(new Dividend(
                         LocalDateTime.of(year, month, day, 0, 0),
                         dividend));
             }
             scrapResult.setDividends(dividends);
-            //모든 배당금 정보가 추가된 배당금 리스트가 scrapeResult에 추가됨
 
         } catch (IOException e) {
             //TODO
@@ -69,10 +68,8 @@ public class YahooFinanceScraper implements Scraper{
         return scrapResult;
     }
 
-    //회사정보를 스크래핑하는 메소드
     @Override
     public Company scrapCompanyByTicker(String ticker) {
-        //ticker를 인자로 넣어주면 해당 회사의 메타정보를 찾아서 반환.
         String url = String.format(SUMMARY_URL, ticker, ticker);
 
         try {
