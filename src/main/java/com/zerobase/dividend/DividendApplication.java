@@ -14,13 +14,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 
-@SpringBootApplication
+//@SpringBootApplication
 @EnableScheduling
 @EnableCaching
 public class DividendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DividendApplication.class, args);
-
+//		SpringApplication.run(DividendApplication.class, args);
+		YahooFinanceScraper s = new YahooFinanceScraper();
+		var result = s.scrapCompanyByTicker("MMM");
+		System.out.println(result);
 	}
 }

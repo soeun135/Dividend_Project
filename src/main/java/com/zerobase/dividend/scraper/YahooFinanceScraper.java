@@ -79,8 +79,8 @@ public class YahooFinanceScraper implements Scraper{
             Document document = Jsoup.connect(url).get();
             Element titleEle = document.getElementsByTag("h1").get(0);
 
-            String title = titleEle.text().split(" - ")[0].trim();
-            //여기가 [1]로하셨는데 이걸로 하면 인덱스범위초과 오류가남.
+            String title = titleEle.text();
+            title = title.substring(0, title.length() - ticker.length() - 2).trim();
             return new Company(ticker, title);
         } catch (IOException e) {
             e.printStackTrace();
