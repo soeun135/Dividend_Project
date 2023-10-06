@@ -8,7 +8,6 @@ import com.zerobase.dividend.persist.entity.CompanyEntity;
 import com.zerobase.dividend.persist.entity.DividendEntity;
 import com.zerobase.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.Trie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +64,4 @@ public class CompanyService {
                 .map(e -> e.getName())
                 .collect(Collectors.toList());
     }
-
-
 }

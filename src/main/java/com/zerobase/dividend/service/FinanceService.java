@@ -29,7 +29,7 @@ public class FinanceService {
     // 요청이 자주 들어오는가? (캐시 사용하기 적합) => O
     // 자주 변경되는 데이터인가 ? (캐시 사용하기 부적합) => X
 
-    @Cacheable(key = "#companyName", value = KEY_FINANCE)
+//    @Cacheable(key = "#companyName", value = KEY_FINANCE)
     //레디스 서버의 key value와 의미 다름
     public ScrapedResult getDividendByCompanyName(String companyName) {
         CompanyEntity company = this.companyRepository.findByName(companyName)

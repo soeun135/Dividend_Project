@@ -39,7 +39,7 @@ public class CompanyController {
             throw new RuntimeException("ticker is empty");
         }
         Company company = companyService.save(ticker);
-        //this.companyService.addAutocompleteKeyword(company.getName());
+//        this.companyService.addAutocompleteKeyword(company.getName());
         return ResponseEntity.ok(company);
     }
 
