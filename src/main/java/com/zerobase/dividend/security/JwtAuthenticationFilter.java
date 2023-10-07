@@ -39,6 +39,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { //한 요청
             Authentication auth = this.tokenProvider.getAuthentication(token);
             //context에 인증정보 넣어줌.
             SecurityContextHolder.getContext().setAuthentication(auth);
+
+            log.info(String.format("[%s] -> %s", this.tokenProvider.getUsername(token), request.getRequestURI()));
         }
 
         //스프링에는 필터체인이라는 개념이 있어서 필터가 연속적으로 실행될 수 있게 함.
