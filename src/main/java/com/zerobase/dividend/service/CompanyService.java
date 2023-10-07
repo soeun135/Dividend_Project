@@ -17,8 +17,6 @@ import org.springframework.util.ObjectUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Arrays.stream;
-
 @Service
 @AllArgsConstructor
 public class CompanyService {
@@ -63,5 +61,14 @@ public class CompanyService {
         return companyEntities.stream()
                 .map(e -> e.getName())
                 .collect(Collectors.toList());
+    }
+
+    public String deleteCompany(String ticker) {
+        var company = this.companyRepository.findByTicker(ticker)
+                .orElseThrow(() -> new RuntimeException("해당 회사가 없습니다."));
+        this.dividendRepository.deleteAllByCompanyId(company.getId());
+        this.companyRepository.delete(company);
+
+        return company.getName();
     }
 }
