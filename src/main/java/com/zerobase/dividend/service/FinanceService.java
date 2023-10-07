@@ -1,5 +1,6 @@
 package com.zerobase.dividend.service;
 
+import com.zerobase.dividend.exception.Impl.NoCompanyException;
 import com.zerobase.dividend.model.Company;
 import com.zerobase.dividend.model.Dividend;
 import com.zerobase.dividend.model.ScrapedResult;
@@ -26,7 +27,7 @@ public class FinanceService {
     @Cacheable(key = "#companyName", value = KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName) {
         CompanyEntity company = this.companyRepository.findByName(companyName)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사명입니다."));
+                .orElseThrow(() -> new NoCompanyException());
 
         List<DividendEntity> dividendEntities =
                 this.dividendRepository.findAllByCompanyId(company.getId());
