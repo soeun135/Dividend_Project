@@ -8,24 +8,23 @@ import com.zerobase.dividend.persist.DividendRepository;
 import com.zerobase.dividend.persist.entity.CompanyEntity;
 import com.zerobase.dividend.persist.entity.DividendEntity;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.zerobase.dividend.model.constants.CacheKey.KEY_FINANCE;
+
 @Service
 @AllArgsConstructor
-@Slf4j
 public class FinanceService {
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
 
 
-    @Cacheable(key = "#companyName", value = "finance")
+    @Cacheable(key = "#companyName", value = KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName) {
-        log.info("search Company" + companyName);
         CompanyEntity company = this.companyRepository.findByName(companyName)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 회사명입니다."));
 

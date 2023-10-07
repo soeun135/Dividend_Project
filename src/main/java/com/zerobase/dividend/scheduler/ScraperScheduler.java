@@ -28,7 +28,6 @@ public class ScraperScheduler {
 
     private final Scraper yahooFinanceScraper;
 
-    //일정 주기마다 수행
     @CacheEvict(value = KEY_FINANCE, allEntries = true)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
@@ -45,7 +44,6 @@ public class ScraperScheduler {
             scrapedResult.getDividends().stream()
                     //dividend 모델 -> dividendEntity
                     .map(e -> new DividendEntity(companyEntity.getId(), e))
-                    //element 하나씩 디비든 repository에 저장
                     .forEach(e -> {
                         boolean exists =
                                 this.dividendRepository.existsByCompanyIdAndDate
