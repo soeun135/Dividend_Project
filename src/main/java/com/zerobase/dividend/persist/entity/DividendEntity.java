@@ -1,6 +1,5 @@
 package com.zerobase.dividend.persist.entity;
 
-import com.zerobase.dividend.model.Company;
 import com.zerobase.dividend.model.Dividend;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
