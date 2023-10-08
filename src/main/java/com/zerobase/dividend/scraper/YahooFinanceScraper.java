@@ -1,5 +1,6 @@
 package com.zerobase.dividend.scraper;
 
+import com.zerobase.dividend.exception.Impl.NotExistTicker;
 import com.zerobase.dividend.model.Company;
 import com.zerobase.dividend.model.Dividend;
 import com.zerobase.dividend.model.ScrapedResult;
@@ -74,8 +75,13 @@ public class YahooFinanceScraper implements Scraper{
 
         try {
             Document document = Jsoup.connect(url).get();
-            Element titleEle = document.getElementsByTag("h1").get(0);
 
+            Element titleEle = null;
+            try {
+                titleEle = document.getElementsByTag("h1").get(0);
+            } catch (IndexOutOfBoundsException e) {
+                throw new NotExistTicker(ticker);
+            }
             String title = titleEle.text();
             title = title.substring(0, title.length() - ticker.length() - 2).trim();
             return new Company(ticker, title);

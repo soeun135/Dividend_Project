@@ -37,9 +37,9 @@ public class CompanyService {
     private Company storeCompanyAndDividend(String ticker) {
         Company company =
                 this.yahooFinanceScraper.scrapCompanyByTicker(ticker);
-         if (ObjectUtils.isEmpty(company)) {
-             throw new RuntimeException("failed to scrap ticker ->" + ticker);
-         }
+        if (ObjectUtils.isEmpty(company)) {
+            throw new RuntimeException("failed to scrap ticker ->" + ticker);
+        }
 
          ScrapedResult scrapedResult = this.yahooFinanceScraper.scrap(company);
 
@@ -67,7 +67,7 @@ public class CompanyService {
 
     public String deleteCompany(String ticker) {
         var company = this.companyRepository.findByTicker(ticker)
-                .orElseThrow(() -> new NoCompanyException());
+                .orElseThrow(NoCompanyException::new);
         this.dividendRepository.deleteAllByCompanyId(company.getId());
         this.companyRepository.delete(company);
 

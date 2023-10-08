@@ -4,6 +4,7 @@ import com.zerobase.dividend.model.Company;
 import com.zerobase.dividend.persist.entity.CompanyEntity;
 import com.zerobase.dividend.service.CompanyService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.zerobase.dividend.model.constants.CacheKey.KEY_FINANCE;
 
 
+@Slf4j
 @RestController
 @RequestMapping("/company")
 @AllArgsConstructor
@@ -38,7 +40,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('WRITE')") //이 권한을 가지고 있는 user가 사용 가능
+    @PreAuthorize("hasRole('WRITE')")
     public ResponseEntity<?> addCompany(
             @RequestBody Company request) {
         String ticker = request.getTicker().trim();
@@ -46,7 +48,6 @@ public class CompanyController {
             throw new RuntimeException("ticker is empty");
         }
         Company company = companyService.save(ticker);
-//        this.companyService.addAutocompleteKeyword(company.getName());
         return ResponseEntity.ok(company);
     }
 
@@ -54,6 +55,8 @@ public class CompanyController {
     @PreAuthorize("hasRole('WRITE')")
     public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
         String companyName = this.companyService.deleteCompany(ticker);
+        log.info(ticker + " 회사정보와 배당금 정보가 삭제되었습니다.");
+
         this.clearFinanceCache(companyName);
         return ResponseEntity.ok(companyName);
     }

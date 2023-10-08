@@ -1,6 +1,5 @@
 package com.zerobase.dividend.web.controller;
 
-import com.zerobase.dividend.model.ScrapedResult;
 import com.zerobase.dividend.service.FinanceService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
