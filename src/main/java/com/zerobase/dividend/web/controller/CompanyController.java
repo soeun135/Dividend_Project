@@ -23,6 +23,7 @@ public class CompanyController {
 
     private final CacheManager redisCacheManager;
 
+
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
         var result = this.companyService.getCompanyNamesByKeyword(keyword);
@@ -56,6 +57,7 @@ public class CompanyController {
         this.clearFinanceCache(companyName);
         return ResponseEntity.ok(companyName);
     }
+
     public void clearFinanceCache(String companyName) {
         this.redisCacheManager.getCache(KEY_FINANCE).evict(companyName);
     }
