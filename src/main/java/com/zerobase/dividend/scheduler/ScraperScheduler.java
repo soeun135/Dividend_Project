@@ -32,17 +32,13 @@ public class ScraperScheduler {
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
         log.info("scraping scheduler is started");
-        // 저장된 회사 목록을 조회
         List<CompanyEntity> companyEntities = this.companyRepository.findAll();
 
-        //회사마다 배당금 정보를 새로 스크래핑
         for (var companyEntity : companyEntities) {
             ScrapedResult scrapedResult = this.yahooFinanceScraper.scrap(
                     new Company(companyEntity.getTicker(), companyEntity.getName()));
 
-            //스크래핑한 배당금 정보 중 DB에 없는 값은 저장
             scrapedResult.getDividends().stream()
-                    //dividend 모델 -> dividendEntity
                     .map(e -> new DividendEntity(companyEntity.getId(), e))
                     .forEach(e -> {
                         boolean exists =
@@ -53,7 +49,6 @@ public class ScraperScheduler {
                             log.info("insert new dividend -> " + e.toString());
                         }
                     });
-            // 연속적인 요청 날리지 않도록 일시정지
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {

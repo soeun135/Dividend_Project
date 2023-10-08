@@ -27,18 +27,17 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("couldn't find user -> " + username));
     }
 
-    public MemberEntity register(Auth.SignUp member) { //회원가입 메소드
+    public MemberEntity register(Auth.SignUp member) {
         boolean exists = this.memberRepository.existsByUsername(member.getUsername());
         if (exists) {
             throw new AlreadyExistUserException();
         }
-        //멤버 정보 DB에 저장할 때 Password는 암호화 해서 넣어야함.
         member.setPassword(this.passwordEncoder.encode(member.getPassword()));
         var result = this.memberRepository.save(member.toEntity());
         return result;
     }
 
-    public MemberEntity authenticate(Auth.SignIn member) { //로그인 시 검증하기 위한 메소드
+    public MemberEntity authenticate(Auth.SignIn member) {
         var user = this.memberRepository.findByUsername(member.getUsername())
                 .orElseThrow(NoUserException::new);
 

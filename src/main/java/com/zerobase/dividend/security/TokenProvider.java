@@ -42,14 +42,11 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String jwt) {
-        //jwt 토큰으로부터 인증정보를 가져오는 메소드
         UserDetails userDetails = this.memberService.loadUserByUsername(this.getUsername(jwt));
-        //Spring에서 지원해주는 토큰으로 바꿔서 반환.
-        //이 토큰은 사용자 정보와 권한 정보를 갖고있게 됨.
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {// token을 통해 Claims를 뽑아내서 username을 가져옴.
+    public String getUsername(String token) {
         return this.parseClaims(token).getSubject();
     }
 

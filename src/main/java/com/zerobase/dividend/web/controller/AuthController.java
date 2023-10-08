@@ -27,9 +27,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody Auth.SignIn request) {
-        //아이디와 패스워드 검증
         var member = this.memberService.authenticate(request);
-        //인증이 되었다면 토큰 생성해서 반환
         var token = this.tokenProvider.generateToken(member.getUsername(), member.getRoles());
         log.info("user login -> " + request.getUsername());
         return ResponseEntity.ok(token);

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 @Entity(name = "MEMBER")
-public class MemberEntity implements UserDetails {//스프링 시큐리티에서 지원하는 기능 사용하기 위해 UserDetails 구현
+public class MemberEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,11 +31,9 @@ public class MemberEntity implements UserDetails {//스프링 시큐리티에서
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
-                //role정보를 SimpleGrantedAuthority로 매핑 시키는 것은 스프링 시큐리티에서 지원하는 role관련 기능을 쓰기 위해서
                 .collect(Collectors.toList());
     }
 
-    //boolean 관련 기능은 여기서 사용하지 않음.
     @Override
     public boolean isAccountNonExpired() {
         return false;
